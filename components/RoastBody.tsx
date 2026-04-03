@@ -2,13 +2,60 @@
 import { useState } from 'react';
 import { ScoreTable } from '@/components/ScoreTable';
 import { FixPlan } from '@/components/FixPlan';
-import { Paywall } from '@/components/Paywall';
 import { useLanguage } from '@/components/LanguageProvider';
+import { ArrowRight, Lock } from 'lucide-react';
 
 interface RoastBodyProps {
   roast: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   lang: string;
   showPaywall: boolean;
+}
+
+function InlinePaywallCTA({ roastId }: { roastId: string }) {
+  const [loading, setLoading] = useState(false);
+
+  const handleCheckout = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/stripe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ roastId }),
+      });
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+    } catch {
+      // noop
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div
+      id="paywall-section"
+      className="rounded-[16px] p-8 sm:p-10 text-center"
+      style={{ background: '#13131A', border: '1px solid rgba(249,115,22,0.4)', boxShadow: '0 0 40px rgba(249,115,22,0.08)' }}
+    >
+      <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5" style={{ background: 'rgba(249,115,22,0.1)', border: '1px solid rgba(249,115,22,0.35)' }}>
+        <Lock className="w-6 h-6" style={{ color: '#F97316' }} />
+      </div>
+      <h3 className="text-xl font-black mb-3 tracking-tight" style={{ color: '#F8FAFC' }}>
+        🔒 Unlock the full report for <span style={{ color: '#F97316' }}>€4.90</span>
+      </h3>
+      <p className="mb-7 text-sm leading-relaxed max-w-sm mx-auto" style={{ color: '#94A3B8' }}>
+        Get the complete kill list, dimension scores, fix plan, quick wins, and personalised recommendations.
+      </p>
+      <button
+        onClick={handleCheckout}
+        disabled={loading}
+        className="btn-orange inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed px-8"
+      >
+        {loading ? 'Redirecting…' : <><span>Pay €4.90 — Unlock Report</span><ArrowRight className="w-4 h-4" /></>}
+      </button>
+      <p className="text-xs mt-4" style={{ color: '#475569' }}>Secure payment via Stripe · One-time · Instant access</p>
+    </div>
+  );
 }
 
 export function RoastBody({ roast, lang, showPaywall }: RoastBodyProps) {
@@ -43,11 +90,18 @@ export function RoastBody({ roast, lang, showPaywall }: RoastBodyProps) {
     }
   };
 
-  return (
-    <div className={`transition-all duration-1000 ${showPaywall ? 'blur-md select-none pointer-events-none opacity-30' : ''}`}>
+  if (showPaywall) {
+    return (
+      <div className="mt-8 pt-10" style={{ borderTop: '1px solid rgba(249,115,22,0.1)' }}>
+        <InlinePaywallCTA roastId={roast.id} />
+      </div>
+    );
+  }
 
+  return (
+    <div>
       {/* Translate button — only in FR locale since AI output is in English */}
-      {lang === 'fr' && !showPaywall && (
+      {lang === 'fr' && (
         <div className="flex justify-end mb-6">
           <button
             onClick={handleTranslate}
@@ -110,7 +164,6 @@ export function RoastBody({ roast, lang, showPaywall }: RoastBodyProps) {
         </h3>
         <p className="font-medium text-lg leading-relaxed italic" style={{ color: '#CBD5E1' }}>&ldquo;{data.encouragement}&rdquo;</p>
       </div>
-
     </div>
   );
 }

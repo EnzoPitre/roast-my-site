@@ -5,7 +5,6 @@ import { authOptions } from "@/lib/auth";
 import { Header } from "@/components/Header";
 import { RoastCard } from "@/components/RoastCard";
 import { RoastBody } from "@/components/RoastBody";
-import { Paywall } from "@/components/Paywall";
 import { RefreshOnSuccess } from "@/components/RefreshOnSuccess";
 import { ReadingProgressBar } from "@/components/ReadingProgressBar";
 import { Suspense } from "react";
@@ -44,21 +43,7 @@ export default async function RoastPage({ params }: { params: { id: string; lang
   const roast = await prisma.roast.findUnique({ where: { id: params.id } });
   if (!roast) notFound();
 
-  const isOwner = session?.user && (session.user as any).id === roast.userId;
   const showPaywall = !roast.isPaid;
-
-  if (showPaywall && !isOwner) {
-    return (
-      <>
-        <Header />
-        <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center">
-          <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 text-3xl" style={{ background: 'rgba(249,115,22,0.1)', border: '1px solid rgba(249,115,22,0.3)' }}>🔒</div>
-          <h1 className="text-3xl font-black mb-4 tracking-tight" style={{ color: '#F8FAFC' }}>{t('roast.private.title')}</h1>
-          <p className="max-w-md text-base font-medium" style={{ color: '#94A3B8' }}>{t('roast.private.desc')}</p>
-        </div>
-      </>
-    );
-  }
 
   return (
     <>
@@ -67,7 +52,6 @@ export default async function RoastPage({ params }: { params: { id: string; lang
       <Header />
       <main className="min-h-screen pt-16 px-4 sm:px-6 relative pb-32">
         <RoastCard roast={roast}>
-          {showPaywall && <Paywall roastId={roast.id} />}
           <RoastBody roast={roast} lang={lang} showPaywall={showPaywall} />
         </RoastCard>
       </main>

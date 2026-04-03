@@ -4,7 +4,6 @@ import { Printer, Share, Flame, X as XIcon, Code, ImageIcon, Loader2 } from 'luc
 import { useLanguage } from '@/components/LanguageProvider';
 import { usePathname } from 'next/navigation';
 import { trackEvent } from '@/components/Analytics';
-import { Paywall } from '@/components/Paywall';
 
 interface RoastCardProps {
   roast: any; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -43,11 +42,11 @@ export function RoastCard({ roast, children }: RoastCardProps) {
   };
 
   const [pdfLoading, setPdfLoading] = useState(false);
-  const [showPaywall, setShowPaywall] = useState(false);
 
   const handlePrint = async () => {
     if (!roast.isPaid) {
-      setShowPaywall(true);
+      showToast('Unlock the full report to download PDF ↓');
+      document.getElementById('paywall-section')?.scrollIntoView({ behavior: 'smooth' });
       return;
     }
     if (pdfLoading) return;
@@ -338,8 +337,6 @@ export function RoastCard({ roast, children }: RoastCardProps) {
         </div>
       )}
 
-      {/* Paywall modal — shown when PDF clicked on unpaid roast */}
-      {showPaywall && <Paywall roastId={roast.id} onClose={() => setShowPaywall(false)} />}
 
       {/* Embed modal */}
       {showEmbed && (
