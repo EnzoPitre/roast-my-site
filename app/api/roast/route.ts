@@ -1,4 +1,17 @@
 import { NextResponse } from 'next/server';
+
+interface RoastResult {
+  globalScore: number
+  summary: string
+  killList: unknown
+  fixPlan: unknown
+  scores: unknown
+  encouragement: string
+  competitorComparison?: string
+  conversionEstimate?: string
+  topOpportunity?: string
+  quickWins?: unknown
+}
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { rateLimiter } from '@/lib/rate-limit';
@@ -79,16 +92,16 @@ ${visibleText}
     `.trim();
 
     // 6. Generate roast with Claude
-    const roastResult = await generateRoast(websiteData);
+    const result = (await generateRoast(websiteData)) as RoastResult;
 
     // 7. Check user's roast count to determine if free
     let user = await prisma.user.findUnique({ where: { id: userId } });
     if (!user) {
       user = await prisma.user.create({
-        data: { 
-          id: userId, 
-          email: session.user.email || '', 
-          name: session.user.name || '' 
+        data: {
+          id: userId,
+          email: session.user.email || '',
+          name: session.user.name || ''
         }
       });
     }
@@ -101,16 +114,16 @@ ${visibleText}
       data: {
         userId,
         url,
-        globalScore: roastResult.globalScore,
-        summary: roastResult.summary,
-        killList: roastResult.killList,
-        fixPlan: roastResult.fixPlan,
-        scores: roastResult.scores,
-        encouragement: roastResult.encouragement,
-        competitorComparison: roastResult.competitorComparison,
-        conversionEstimate: roastResult.conversionEstimate,
-        topOpportunity: roastResult.topOpportunity,
-        quickWins: roastResult.quickWins,
+        globalScore: result.globalScore,
+        summary: result.summary,
+        killList: result.killList,
+        fixPlan: result.fixPlan,
+        scores: result.scores,
+        encouragement: result.encouragement,
+        competitorComparison: result.competitorComparison,
+        conversionEstimate: result.conversionEstimate,
+        topOpportunity: result.topOpportunity,
+        quickWins: result.quickWins,
         isPaid,
       }
     });
@@ -130,7 +143,7 @@ ${visibleText}
         roastId: roast.id,
         roastUrl: url,
         globalScore: roast.globalScore,
-        killList: roastResult.killList as Array<{ rank: number; issue: string; why: string }>,
+        killList: result.killList as Array<{ rank: number; issue: string; why: string }>,
         lang: (lang === 'fr' ? 'fr' : 'en'),
       }).catch(() => {});
     }
