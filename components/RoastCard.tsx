@@ -4,6 +4,7 @@ import { Printer, Share, Flame, X as XIcon, Code, ImageIcon, Loader2 } from 'luc
 import { useLanguage } from '@/components/LanguageProvider';
 import { usePathname } from 'next/navigation';
 import { trackEvent } from '@/components/Analytics';
+import { Paywall } from '@/components/Paywall';
 
 interface RoastCardProps {
   roast: any; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -42,8 +43,13 @@ export function RoastCard({ roast, children }: RoastCardProps) {
   };
 
   const [pdfLoading, setPdfLoading] = useState(false);
+  const [showPaywall, setShowPaywall] = useState(false);
 
   const handlePrint = async () => {
+    if (!roast.isPaid) {
+      setShowPaywall(true);
+      return;
+    }
     if (pdfLoading) return;
     setPdfLoading(true);
     try {
@@ -328,6 +334,18 @@ export function RoastCard({ roast, children }: RoastCardProps) {
                 ✕
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Paywall modal — shown when PDF clicked on unpaid roast */}
+      {showPaywall && (
+        <div
+          style={{ position: 'fixed', inset: 0, zIndex: 10000, background: 'rgba(0,0,0,0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}
+          onClick={() => setShowPaywall(false)}
+        >
+          <div onClick={e => e.stopPropagation()}>
+            <Paywall roastId={roast.id} />
           </div>
         </div>
       )}

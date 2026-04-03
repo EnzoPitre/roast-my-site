@@ -1,8 +1,7 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { X } from 'lucide-react';
 import { useLanguage } from '@/components/LanguageProvider';
-import { useSession } from 'next-auth/react';
 import { TranslationKey } from '@/lib/translations';
 
 const SECTORS = [
@@ -20,7 +19,6 @@ interface Props {
 
 export function ReviewModal({ onClose }: Props) {
   const { t } = useLanguage();
-  const { data: session } = useSession();
 
   const [name, setName]       = useState('');
   const [role, setRole]       = useState('');
@@ -32,11 +30,6 @@ export function ReviewModal({ onClose }: Props) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError]     = useState('');
-
-  // Pre-fill name from Google session
-  useEffect(() => {
-    if (session?.user?.name) setName(session.user.name);
-  }, [session]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
