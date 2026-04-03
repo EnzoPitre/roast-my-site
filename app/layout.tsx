@@ -3,6 +3,7 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@/components/Analytics";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { CookieBanner } from "@/components/CookieBanner";
 import { Orbitron } from 'next/font/google';
 
@@ -48,6 +49,7 @@ export default function RootLayout({
           <Footer />
           <CookieBanner />
           <Analytics />
+          <VercelAnalytics />
         </Providers>
       </body>
     </html>
