@@ -38,34 +38,39 @@ export async function POST(req: Request) {
     const userId = (session.user as any).id;
 
     // 3. Input validation
-    const { url, lang = 'en' } = await req.json();
+    const { url, lang = 'en', manualHtml } = await req.json();
     if (!url || !/^https?:\/\//i.test(url)) {
-      return NextResponse.json({ error: 'Invalid URL format' }, { status: 400 });
+      return NextResponse.json({ error: 'invalid_url', errorCode: 'invalid_url' }, { status: 400 });
     }
 
-    // 4. Fetch the target URL with a 10s timeout
+    // 4. Fetch the target URL with a 10s timeout (skip if manual HTML provided)
     let html = '';
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000);
-      
-      const response = await fetch(url, {
-        signal: controller.signal,
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 RoastBot/1.0',
+    if (manualHtml && typeof manualHtml === 'string' && manualHtml.trim().length > 100) {
+      html = manualHtml;
+    } else {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+        const response = await fetch(url, {
+          signal: controller.signal,
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 RoastBot/1.0',
+          }
+        });
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          const status = response.status;
+          const errorCode = (status === 403 || status === 429 || status === 503) ? 'bot_blocked' : 'unreachable';
+          return NextResponse.json({ error: errorCode, errorCode }, { status: 400 });
         }
-      });
-      clearTimeout(timeoutId);
-      
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
+        html = await response.text();
+      } catch (e: any) {
+        const isTimeout = e?.name === 'AbortError';
+        const errorCode = isTimeout ? 'timeout' : 'unreachable';
+        return NextResponse.json({ error: errorCode, errorCode }, { status: 400 });
       }
-      html = await response.text();
-    } catch (e: any) {
-      return NextResponse.json({ 
-        error: 'unreachable', 
-        suggestion: 'The URL could not be fetched or took too long to respond. It might be blocking automated requests.' 
-      }, { status: 400 });
     }
 
     // 5. Parse with Cheerio
@@ -83,7 +88,7 @@ export async function POST(req: Request) {
     visibleText = visibleText.replace(/\s+/g, ' ').trim().slice(0, 3000);
 
     const websiteData = `
-URL: ${url}
+URL: ${url}${manualHtml ? '\n[NOTE: Analyzing manually provided HTML — site blocked automated fetch]' : ''}
 Title: ${title}
 Description: ${description}
 OgImage: ${ogImage}

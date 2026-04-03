@@ -25,6 +25,8 @@ export function Hero() {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showHtmlFallback, setShowHtmlFallback] = useState(false);
+  const [manualHtml, setManualHtml] = useState('');
   const [progress, setProgress] = useState(0);
   const [stepIndex, setStepIndex] = useState(0);
   const [inputFocused, setInputFocused] = useState(false);
@@ -124,16 +126,33 @@ export function Hero() {
     }
   };
 
+  const ERROR_CODE_KEYS: Record<string, string> = {
+    bot_blocked: 'error.bot_blocked',
+    timeout: 'error.timeout',
+    unreachable: 'error.unreachable',
+    invalid_url: 'error.invalid_url',
+  };
+
+  const SHOW_HTML_FALLBACK_CODES = new Set(['bot_blocked', 'unreachable', 'timeout']);
+
   const handleRoast = async (e: React.FormEvent) => {
     e.preventDefault();
     if (status !== 'authenticated') { signIn('google'); return; }
-    setError(null); setLoading(true);
+    setError(null); setShowHtmlFallback(false); setLoading(true);
     startLoadingProgress();
     trackEvent('roast_submitted', { url });
     try {
-      const res = await fetch("/api/roast", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ url, lang }) });
+      const body: Record<string, string> = { url, lang };
+      if (manualHtml.trim().length > 100) body.manualHtml = manualHtml;
+      const res = await fetch("/api/roast", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to generate roast");
+      if (!res.ok) {
+        const code = data.errorCode as string | undefined;
+        const msgKey = (code && ERROR_CODE_KEYS[code]) ? ERROR_CODE_KEYS[code] : null;
+        const msg = msgKey ? (t(msgKey as Parameters<typeof t>[0]) as string) : (data.error || 'Failed to generate roast');
+        if (code && SHOW_HTML_FALLBACK_CODES.has(code)) setShowHtmlFallback(true);
+        throw new Error(msg);
+      }
       stopLoadingProgress(true);
       trackEvent('roast_completed', { roast_id: data.roastId });
       setTimeout(() => router.push(`/${lang}/roast/${data.roastId}`), 400);
@@ -193,11 +212,35 @@ export function Hero() {
           </button>
         </div>
         {error && (
-          <div className="mt-4 p-4 rounded-xl flex items-center gap-3 text-left absolute -bottom-16 w-full" style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.4)', color: '#FCA5A5' }}>
-            <p className="font-medium text-sm w-full text-center">{error}</p>
+          <div className="mt-4 p-4 rounded-xl text-left w-full" style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.4)', color: '#FCA5A5', position: 'absolute', top: '100%', left: 0 }}>
+            <p className="font-medium text-sm text-center">{error}</p>
           </div>
         )}
       </form>
+
+      {/* HTML Fallback — shown when fetch is blocked */}
+      {showHtmlFallback && !loading && (
+        <div className="w-full max-w-2xl mx-auto mt-20 z-10" style={{ background: '#13131A', border: '1px solid rgba(249,115,22,0.3)', borderRadius: '16px', padding: '1.5rem' }}>
+          <p className="text-xs font-black uppercase tracking-widest mb-3" style={{ color: '#F97316' }}>
+            {t('error.html_label' as Parameters<typeof t>[0]) as string}
+          </p>
+          <textarea
+            value={manualHtml}
+            onChange={e => setManualHtml(e.target.value)}
+            placeholder={t('error.html_placeholder' as Parameters<typeof t>[0]) as string}
+            rows={6}
+            className="w-full text-xs font-mono rounded-xl px-4 py-3 outline-none resize-y"
+            style={{ background: '#0A0A0F', border: '1px solid rgba(249,115,22,0.2)', color: '#94A3B8' }}
+          />
+          <button
+            onClick={(e) => { handleRoast(e as any); }}
+            disabled={manualHtml.trim().length < 100}
+            className="btn-orange mt-3 w-full flex items-center justify-center cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {t('error.html_cta' as Parameters<typeof t>[0]) as string}
+          </button>
+        </div>
+      )}
 
       {/* Progress bar */}
       <div

@@ -136,6 +136,13 @@ export const translations = {
 
     // Error
     "error.empty_url": "Please enter a valid URL (e.g., https://example.com)",
+    "error.invalid_url": "Please enter a valid URL starting with https://",
+    "error.bot_blocked": "This site blocks automated requests (Cloudflare / bot protection). Try a less protected site, or paste your homepage HTML manually below.",
+    "error.timeout": "The site took too long to respond. It might be slow or temporarily down.",
+    "error.unreachable": "We couldn't reach this site. Check the URL and try again.",
+    "error.html_placeholder": "Paste your homepage HTML here as a fallback...",
+    "error.html_label": "Paste your homepage HTML here as a fallback:",
+    "error.html_cta": "Roast with this HTML →",
     
     // Footer
     "footer.rights": "All rights reserved.",
@@ -561,6 +568,13 @@ export const translations = {
     "blog.title": "Ressources Récentes",
 
     "error.empty_url": "Veuillez entrer une URL valide (ex: https://exemple.fr)",
+    "error.invalid_url": "Veuillez entrer une URL valide commençant par https://",
+    "error.bot_blocked": "Ce site bloque les requêtes automatisées (Cloudflare / protection anti-bot). Essayez un site moins protégé, ou collez votre HTML ci-dessous.",
+    "error.timeout": "Le site a mis trop de temps à répondre. Il est peut-être lent ou temporairement indisponible.",
+    "error.unreachable": "Impossible d'atteindre ce site. Vérifiez l'URL et réessayez.",
+    "error.html_placeholder": "Collez ici le HTML de votre page d'accueil...",
+    "error.html_label": "Collez ici le HTML de votre page d'accueil comme solution de secours :",
+    "error.html_cta": "Analyser avec ce HTML →",
 
     "footer.rights": "Tous droits réservés.",
     "footer.legal": "Mentions Légales",
