@@ -339,23 +339,7 @@ export function RoastCard({ roast, children }: RoastCardProps) {
       )}
 
       {/* Paywall modal — shown when PDF clicked on unpaid roast */}
-      {showPaywall && (
-        <div
-          style={{ position: 'fixed', inset: 0, zIndex: 10000, background: 'rgba(0,0,0,0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}
-          onClick={() => setShowPaywall(false)}
-        >
-          <div style={{ position: 'relative' }} onClick={e => e.stopPropagation()}>
-            <button
-              onClick={() => setShowPaywall(false)}
-              style={{ position: 'absolute', top: '12px', right: '12px', zIndex: 1, color: '#64748B', background: 'transparent', border: 'none', cursor: 'pointer', padding: '4px', lineHeight: 1 }}
-              aria-label="Close"
-            >
-              ✕
-            </button>
-            <Paywall roastId={roast.id} />
-          </div>
-        </div>
-      )}
+      {showPaywall && <Paywall roastId={roast.id} onClose={() => setShowPaywall(false)} />}
 
       {/* Embed modal */}
       {showEmbed && (
