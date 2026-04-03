@@ -51,7 +51,8 @@ RULES:
 - Never start with a compliment in the summary.
 - If the site is genuinely good, still find 3 real improvements.
 - Be specific: name the exact element failing, not just the category.
-- If data is very limited (JS-rendered site, blocked), say so in the summary and work with what you have.`;
+- If data is very limited (JS-rendered site, blocked), say so in the summary and work with what you have.
+- Score calibration: A score of 5/10 means average — not good, not bad. 7-8/10 means genuinely good with room for improvement. 9-10/10 means exceptional. 1-2/10 means critically broken. Most sites score between 4-7/10. Be accurate, not systematically harsh.`;
 
 export async function generateRoast(websiteData: string, retries = 1): Promise<unknown> {
   try {
