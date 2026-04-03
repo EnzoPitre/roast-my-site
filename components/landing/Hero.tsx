@@ -171,8 +171,7 @@ export function Hero() {
 
 
       <h1 className="text-[clamp(2.5rem,6vw,5rem)] font-black mb-6 tracking-tighter leading-[1.05] text-[#F8FAFC] text-balance h-auto min-h-[3em] md:min-h-[2.5em] flex items-center justify-center">
-        {currentText}
-        <span className="w-1 h-12 bg-orange-500 animate-pulse ml-2 mb-1" style={{ animationDuration: '0.8s' }} />
+        {currentText}<span className="typewriter-cursor">|</span>
       </h1>
 
       <p className="text-lg md:text-[1.25rem] mb-12 max-w-2xl mx-auto font-medium leading-relaxed z-10" style={{ color: '#CBD5E1' }}>

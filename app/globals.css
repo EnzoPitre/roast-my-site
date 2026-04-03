@@ -235,6 +235,19 @@ body {
   animation: beam-sweep 14s ease-in-out infinite;
 }
 
+/* Typewriter cursor */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+.typewriter-cursor {
+  display: inline;
+  color: #F97316;
+  font-weight: 300;
+  animation: blink 1s infinite;
+  margin-left: 1px;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
