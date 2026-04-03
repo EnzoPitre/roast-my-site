@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { Prisma } from '@prisma/client';
 
 interface RoastResult {
   globalScore: number
@@ -116,14 +117,14 @@ ${visibleText}
         url,
         globalScore: result.globalScore,
         summary: result.summary,
-        killList: result.killList,
-        fixPlan: result.fixPlan,
-        scores: result.scores,
+        killList: result.killList as Prisma.InputJsonValue,
+        fixPlan: result.fixPlan as Prisma.InputJsonValue,
+        scores: result.scores as Prisma.InputJsonValue,
         encouragement: result.encouragement,
         competitorComparison: result.competitorComparison,
         conversionEstimate: result.conversionEstimate,
         topOpportunity: result.topOpportunity,
-        quickWins: result.quickWins,
+        quickWins: result.quickWins as Prisma.InputJsonValue,
         isPaid,
       }
     });
