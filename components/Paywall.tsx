@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Lock, ArrowRight, X } from 'lucide-react';
+import { Lock, ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/components/LanguageProvider';
 import { trackEvent } from '@/components/Analytics';
 
@@ -42,10 +42,21 @@ export function Paywall({ roastId, onClose }: { roastId: string; onClose?: () =>
         {onClose && (
           <button
             onClick={onClose}
-            style={{ position: 'absolute', top: '1rem', right: '1rem', color: '#64748B', background: 'transparent', border: 'none', cursor: 'pointer', padding: '4px', lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            aria-label="Close"
+            style={{
+              position: 'absolute',
+              top: '12px',
+              right: '12px',
+              background: 'transparent',
+              border: 'none',
+              color: '#F8FAFC',
+              fontSize: '24px',
+              cursor: 'pointer',
+              lineHeight: '1',
+              padding: '4px 8px',
+              zIndex: 10,
+            }}
           >
-            <X className="w-4 h-4" />
+            ×
           </button>
         )}
         <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style={{ background: 'rgba(249,115,22,0.1)', border: '1px solid rgba(249,115,22,0.35)' }}>
