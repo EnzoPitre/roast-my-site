@@ -11,10 +11,11 @@ const BASE_URL = process.env.NEXTAUTH_URL || 'https://roastmysite.com';
 export async function generateMetadata({ params }: { params: { lang: string } }): Promise<import('next').Metadata> {
   const lang = params.lang as Language;
   const t = translations[lang];
-  const title = lang === 'fr' ? 'À propos | Roast My Site' : 'About | Roast My Site';
+  const title = lang === 'fr' ? 'À Propos — Roast My Site, Créé à Bordeaux 🇫🇷' : 'About | Roast My Site';
   return {
     title,
     description: t['meta.about.description'],
+    keywords: lang === 'fr' ? ['à propos roast my site', 'made in France', 'startup bordeaux'] : undefined,
     alternates: { canonical: `${BASE_URL}/${lang}/about` },
     openGraph: { title, description: t['meta.about.description'], url: `${BASE_URL}/${lang}/about` },
   };

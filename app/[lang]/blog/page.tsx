@@ -12,6 +12,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
   return {
     title: t['meta.blog.title'],
     description: t['meta.blog.description'],
+    keywords: lang === 'fr' ? ['blog optimisation site web', 'améliorer conversion', 'stratégie CRO'] : undefined,
     alternates: {
       canonical,
       languages: { en: `${BASE_URL}/en/blog`, fr: `${BASE_URL}/fr/blog` },

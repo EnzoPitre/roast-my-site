@@ -9,6 +9,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
   return {
     title: t['meta.compare.title'],
     description: t['meta.compare.description'],
+    keywords: lang === 'fr' ? ['comparer sites web', 'audit concurrentiel'] : undefined,
     alternates: { canonical: `${BASE_URL}/${lang}/compare` },
     openGraph: { title: t['meta.compare.title'], description: t['meta.compare.description'], url: `${BASE_URL}/${lang}/compare` },
   };

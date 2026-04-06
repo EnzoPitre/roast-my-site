@@ -11,6 +11,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
   return {
     title: t['meta.pricing.title'],
     description: t['meta.pricing.description'],
+    keywords: lang === 'fr' ? ['prix audit site web', 'tarif analyse site web'] : undefined,
     alternates: { canonical: `${BASE_URL}/${lang}/pricing` },
     openGraph: { title: t['meta.pricing.title'], description: t['meta.pricing.description'], url: `${BASE_URL}/${lang}/pricing` },
   };

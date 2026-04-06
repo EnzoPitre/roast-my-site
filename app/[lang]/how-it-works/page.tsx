@@ -1,8 +1,22 @@
+import { Metadata } from 'next';
 import { Header } from "@/components/Header";
 import { Link2, Bot, Flame } from "lucide-react";
 import { translations, Language, TranslationKey } from "@/lib/translations";
 
-export const metadata = { title: "How it works | Roast My Site" };
+export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
+  const lang = params.lang as Language;
+  if (lang === 'fr') {
+    return {
+      title: "Comment Fonctionne l'Audit de Site Web IA",
+      description: "Notre IA analyse votre site sur 7 dimensions en 30 secondes et génère un plan d'action.",
+      keywords: ['comment auditer son site web', 'analyse UX', 'score site web', 'outil audit gratuit'],
+    };
+  }
+  return {
+    title: "How AI Website Audits Work in 30 Seconds",
+    description: "Roast My Site analyzes 7 dimensions: design, copywriting, trust, UX, mobile, conversion.",
+  };
+}
 
 export default function HowItWorks({ params }: { params: { lang: string } }) {
   const lang = params.lang as Language;

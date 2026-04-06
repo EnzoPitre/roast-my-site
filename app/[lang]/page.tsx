@@ -12,7 +12,9 @@ export async function generateMetadata({ params }: { params: { lang: string } })
   return {
     title: t['meta.home.title'],
     description: t['meta.home.description'],
-    keywords: ['website audit', 'UX audit', 'conversion rate optimization', 'AI website review', 'landing page audit'],
+    keywords: lang === 'fr'
+      ? ['audit site web gratuit', 'analyser site web', 'optimisation taux de conversion', 'audit UX gratuit']
+      : ['website audit', 'free website audit', 'AI website analysis', 'conversion rate optimization'],
     alternates: {
       canonical,
       languages: {
