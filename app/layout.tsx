@@ -18,8 +18,9 @@ export const metadata: Metadata = {
   title: "Roast My Site | Brutal AI Audits",
   description: "Get a brutally honest, AI-powered audit of your website's UX, design, and copy. Stop losing conversions immediately.",
   icons: {
-    icon: "/favicon.png",
-    apple: "/favicon.png",
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
   },
 };
 
