@@ -7,8 +7,18 @@ import { redirect } from "next/navigation";
 import { ArrowRight, Lock, Flame } from "lucide-react";
 import { translations, Language, TranslationKey } from "@/lib/translations";
 import { LeaveReviewButton } from "@/components/LeaveReviewButton";
+import { Metadata } from "next";
 
-export const metadata = { title: "Dashboard | Roast My Site" };
+export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
+  const lang = params.lang as Language;
+  return {
+    title: lang === 'fr' ? 'Tableau de bord — Roast My Site' : 'Dashboard — Roast My Site',
+    description: lang === 'fr'
+      ? 'Accédez à l\'historique de tous vos audits de sites web et débloquez vos rapports complets.'
+      : 'Access all your website audit history and unlock your full AI-powered reports.',
+    robots: { index: false, follow: false },
+  };
+}
 
 export default async function Dashboard({ params }: { params: { lang: string } }) {
   const lang = params.lang as Language;

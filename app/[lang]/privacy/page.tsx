@@ -1,6 +1,27 @@
 import { Header } from "@/components/Header";
+import { Metadata } from "next";
 
-export const metadata = { title: "Politique de confidentialité | Roast My Site" };
+const BASE_URL = process.env.NEXTAUTH_URL || 'https://roastmysite.com';
+
+export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
+  const lang = params.lang;
+  if (lang === 'fr') {
+    const canonical = `${BASE_URL}/fr/confidentialite`;
+    return {
+      title: 'Politique de confidentialité — Roast My Site',
+      description: 'Découvrez comment Roast My Site collecte, utilise et protège vos données personnelles. Conformité RGPD et droits d\'accès garantis.',
+      alternates: { canonical },
+      openGraph: { title: 'Politique de confidentialité — Roast My Site', description: 'Découvrez comment Roast My Site collecte, utilise et protège vos données personnelles. Conformité RGPD et droits d\'accès garantis.', url: canonical, type: 'website' },
+    };
+  }
+  const canonical = `${BASE_URL}/en/privacy`;
+  return {
+    title: 'Privacy Policy — Roast My Site',
+    description: 'Learn how Roast My Site collects, uses and protects your personal data. GDPR compliant with full data access and deletion rights.',
+    alternates: { canonical },
+    openGraph: { title: 'Privacy Policy — Roast My Site', description: 'Learn how Roast My Site collects, uses and protects your personal data. GDPR compliant with full data access and deletion rights.', url: canonical, type: 'website' },
+  };
+}
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="mb-8">

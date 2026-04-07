@@ -11,13 +11,16 @@ const BASE_URL = process.env.NEXTAUTH_URL || 'https://roastmysite.com';
 export async function generateMetadata({ params }: { params: { lang: string } }): Promise<import('next').Metadata> {
   const lang = params.lang as Language;
   const t = translations[lang];
-  const title = lang === 'fr' ? 'À Propos — Roast My Site, Créé à Bordeaux 🇫🇷' : 'About | Roast My Site';
+  const title = lang === 'fr' ? 'À Propos — Roast My Site, Créé à Bordeaux' : 'About Roast My Site — Made in Bordeaux';
+  const canonical = `${BASE_URL}/${lang}/about`;
   return {
     title,
     description: t['meta.about.description'],
-    keywords: lang === 'fr' ? ['à propos roast my site', 'made in France', 'startup bordeaux'] : undefined,
-    alternates: { canonical: `${BASE_URL}/${lang}/about` },
-    openGraph: { title, description: t['meta.about.description'], url: `${BASE_URL}/${lang}/about` },
+    keywords: lang === 'fr'
+      ? ['à propos roast my site', 'made in France', 'startup bordeaux', 'fondateur roast my site']
+      : ['about roast my site', 'website audit tool', 'made in Bordeaux France', 'indie maker'],
+    alternates: { canonical, languages: { en: `${BASE_URL}/en/about`, fr: `${BASE_URL}/fr/about` } },
+    openGraph: { title, description: t['meta.about.description'], url: canonical, type: 'website', images: [{ url: `${BASE_URL}/og?lang=${lang}`, width: 1200, height: 630 }] },
   };
 }
 

@@ -1,6 +1,27 @@
 import { Header } from "@/components/Header";
+import { Metadata } from "next";
 
-export const metadata = { title: "Mentions légales | Roast My Site" };
+const BASE_URL = process.env.NEXTAUTH_URL || 'https://roastmysite.com';
+
+export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
+  const lang = params.lang;
+  if (lang === 'fr') {
+    const canonical = `${BASE_URL}/fr/mentions-legales`;
+    return {
+      title: 'Mentions légales — Roast My Site',
+      description: "Informations légales sur l'éditeur du site Roast My Site et son hébergement par Vercel. Auto-entrepreneur basé à Bordeaux.",
+      alternates: { canonical },
+      openGraph: { title: 'Mentions légales — Roast My Site', description: "Informations légales sur l'éditeur du site Roast My Site et son hébergement par Vercel. Auto-entrepreneur basé à Bordeaux.", url: canonical, type: 'website' },
+    };
+  }
+  const canonical = `${BASE_URL}/en/legal`;
+  return {
+    title: 'Legal Notice — Roast My Site',
+    description: 'Legal information about Roast My Site, its publisher Enzo Pitre and its hosting provider Vercel Inc. Based in Bordeaux, France.',
+    alternates: { canonical },
+    openGraph: { title: 'Legal Notice — Roast My Site', description: 'Legal information about Roast My Site, its publisher Enzo Pitre and its hosting provider Vercel Inc. Based in Bordeaux, France.', url: canonical, type: 'website' },
+  };
+}
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="mb-8">

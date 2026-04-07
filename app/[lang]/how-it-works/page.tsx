@@ -3,18 +3,27 @@ import { Header } from "@/components/Header";
 import { Link2, Bot, Flame } from "lucide-react";
 import { translations, Language, TranslationKey } from "@/lib/translations";
 
+const BASE_URL = process.env.NEXTAUTH_URL || 'https://roastmysite.com';
+
 export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
   const lang = params.lang as Language;
   if (lang === 'fr') {
+    const canonical = `${BASE_URL}/fr/comment-ca-marche`;
     return {
-      title: "Comment Fonctionne l'Audit de Site Web IA",
-      description: "Notre IA analyse votre site sur 7 dimensions en 30 secondes et génère un plan d'action.",
-      keywords: ['comment auditer son site web', 'analyse UX', 'score site web', 'outil audit gratuit'],
+      title: "Comment fonctionne l'audit IA de site web — Roast My Site",
+      description: "Notre IA analyse votre site sur 7 dimensions en 30 secondes et génère un plan d'action concret. Découvrez le fonctionnement complet.",
+      keywords: ['comment auditer son site web', 'analyse UX IA', 'score site web', 'outil audit gratuit'],
+      alternates: { canonical, languages: { en: `${BASE_URL}/en/how-it-works`, fr: canonical } },
+      openGraph: { title: "Comment fonctionne l'audit IA de site web — Roast My Site", description: "Notre IA analyse votre site sur 7 dimensions en 30 secondes et génère un plan d'action concret. Découvrez le fonctionnement complet.", url: canonical, type: 'website' },
     };
   }
+  const canonical = `${BASE_URL}/en/how-it-works`;
   return {
-    title: "How AI Website Audits Work in 30 Seconds",
-    description: "Roast My Site analyzes 7 dimensions: design, copywriting, trust, UX, mobile, conversion.",
+    title: 'How AI Website Audits Work in 30 Seconds — Roast My Site',
+    description: 'Roast My Site analyzes 7 dimensions: design, copywriting, trust signals, UX, mobile, conversion, and first impression. Get your action plan.',
+    keywords: ['how website audit works', 'ai website analysis', 'ux audit tool', 'site audit dimensions', 'how to audit a website'],
+    alternates: { canonical, languages: { en: canonical, fr: `${BASE_URL}/fr/comment-ca-marche` } },
+    openGraph: { title: 'How AI Website Audits Work in 30 Seconds — Roast My Site', description: 'Roast My Site analyzes 7 dimensions: design, copywriting, trust signals, UX, mobile, conversion, and first impression. Get your action plan.', url: canonical, type: 'website' },
   };
 }
 

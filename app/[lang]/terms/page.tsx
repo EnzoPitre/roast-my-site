@@ -1,6 +1,27 @@
 import { Header } from "@/components/Header";
+import { Metadata } from "next";
 
-export const metadata = { title: "CGU | Roast My Site" };
+const BASE_URL = process.env.NEXTAUTH_URL || 'https://roastmysite.com';
+
+export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
+  const lang = params.lang;
+  if (lang === 'fr') {
+    const canonical = `${BASE_URL}/fr/cgu`;
+    return {
+      title: "Conditions Générales d'Utilisation — Roast My Site",
+      description: "Conditions d'utilisation de Roast My Site : service IA fourni en l'état, achats non remboursables, droit français applicable.",
+      alternates: { canonical },
+      openGraph: { title: "Conditions Générales d'Utilisation — Roast My Site", description: "Conditions d'utilisation de Roast My Site : service IA fourni en l'état, achats non remboursables, droit français applicable.", url: canonical, type: 'website' },
+    };
+  }
+  const canonical = `${BASE_URL}/en/terms`;
+  return {
+    title: 'Terms of Service — Roast My Site',
+    description: 'Roast My Site terms of service: AI-powered reports provided as-is, purchases are final and non-refundable, governed by French law.',
+    alternates: { canonical },
+    openGraph: { title: 'Terms of Service — Roast My Site', description: 'Roast My Site terms of service: AI-powered reports provided as-is, purchases are final and non-refundable, governed by French law.', url: canonical, type: 'website' },
+  };
+}
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="mb-8">

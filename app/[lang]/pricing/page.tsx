@@ -8,12 +8,15 @@ const BASE_URL = process.env.NEXTAUTH_URL || 'https://roastmysite.com';
 export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
   const lang = params.lang as Language;
   const t = translations[lang];
+  const canonical = lang === 'fr' ? `${BASE_URL}/fr/tarifs` : `${BASE_URL}/en/pricing`;
   return {
     title: t['meta.pricing.title'],
     description: t['meta.pricing.description'],
-    keywords: lang === 'fr' ? ['prix audit site web', 'tarif analyse site web'] : undefined,
-    alternates: { canonical: `${BASE_URL}/${lang}/pricing` },
-    openGraph: { title: t['meta.pricing.title'], description: t['meta.pricing.description'], url: `${BASE_URL}/${lang}/pricing` },
+    keywords: lang === 'fr'
+      ? ['prix audit site web', 'tarif analyse site web IA', 'audit gratuit site']
+      : ['website audit pricing', 'ai audit cost', 'roast my site price', 'free website audit'],
+    alternates: { canonical, languages: { en: `${BASE_URL}/en/pricing`, fr: `${BASE_URL}/fr/tarifs` } },
+    openGraph: { title: t['meta.pricing.title'], description: t['meta.pricing.description'], url: canonical, type: 'website' },
   };
 }
 
