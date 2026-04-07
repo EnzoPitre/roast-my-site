@@ -19,13 +19,21 @@ export async function generateMetadata({ params }: { params: { slug: string; lan
   const post = getPost(params.slug);
   const lang = params.lang as Language;
   if (!post) return {};
-  const title = `${post.title[lang]} | Roast My Site Blog`;
+  const title = post.title[lang];
   const description = post.excerpt[lang];
   const canonical = `${BASE_URL}/${lang}/blog/${params.slug}`;
+  const alternateLang = lang === 'fr' ? 'en' : 'fr';
   return {
     title,
     description,
-    alternates: { canonical },
+    keywords: post.keywords?.[lang],
+    alternates: {
+      canonical,
+      languages: {
+        [lang]: canonical,
+        [alternateLang]: `${BASE_URL}/${alternateLang}/blog/${params.slug}`,
+      },
+    },
     openGraph: {
       title,
       description,
@@ -64,6 +72,9 @@ export default function BlogPost({ params }: { params: { slug: string; lang: str
   // Render markdown-like bold (**text**), headings (### text), and links ([text](url))
   const renderContent = (text: string) => {
     return text.split('\n').map((line, i) => {
+      if (line.startsWith('## ')) {
+        return <h2 key={i} className="text-2xl font-black mt-10 mb-4 tracking-tight" style={{ color: '#F8FAFC' }}>{line.slice(3)}</h2>;
+      }
       if (line.startsWith('### ')) {
         return <h3 key={i} className="text-xl font-black mt-8 mb-3 tracking-tight" style={{ color: '#F8FAFC' }}>{line.slice(4)}</h3>;
       }

@@ -9,6 +9,7 @@ export interface BlogPost {
   readTime: number;
   title: { en: string; fr: string };
   excerpt: { en: string; fr: string };
+  keywords?: { en: string[]; fr: string[] };
   content: { en: string; fr: string };
   related: string[];
 }
@@ -26,8 +27,12 @@ export const BLOG_POSTS: BlogPost[] = [
       fr: '7 Signes que Votre Site Web Tue Vos Conversions',
     },
     excerpt: {
-      en: 'A website is your 24/7 salesperson. If it\'s failing, you are bleeding money.',
-      fr: 'Un site web est votre commercial disponible 24h/24. S\'il échoue, vous perdez de l\'argent.',
+      en: 'A website is your 24/7 salesperson. If it\'s failing, you\'re bleeding money — and you probably don\'t know where the leaks are.',
+      fr: 'Un site web est votre commercial disponible 24h/24. S\'il échoue, vous perdez de l\'argent — et vous ne savez probablement pas où sont les fuites.',
+    },
+    keywords: {
+      en: ['website conversion rate', 'website audit', 'conversion killers', 'landing page mistakes', 'CRO tips'],
+      fr: ['taux de conversion site web', 'audit site web', 'tueurs de conversion', 'erreurs landing page', 'optimisation conversion'],
     },
     content: {
       en: `A website is your 24/7 salesperson. If it's failing, you are bleeding money. The reality is that most founders are too close to their product to see the obvious flaws in their landing page. Here are 7 undeniable signs that your website is actively killing your conversion rate.
@@ -94,8 +99,12 @@ Si votre site présente plus de 3 de ces signes, votre taux de conversion en sou
       fr: 'Pourquoi Votre Section Hero Fait Fuir Vos Clients',
     },
     excerpt: {
-      en: 'Clarity beats cleverness. If your hero text reads like a philosophical puzzle, you are losing money.',
-      fr: 'La clarté bat la créativité. Si votre texte hero ressemble à une énigme philosophique, vous perdez de l\'argent.',
+      en: 'Clarity beats cleverness every time. If your hero text reads like a philosophical puzzle, visitors leave — and they don\'t come back.',
+      fr: 'La clarté bat la créativité à chaque fois. Si votre texte hero ressemble à une énigme philosophique, vous perdez de l\'argent sans le savoir.',
+    },
+    keywords: {
+      en: ['hero section copywriting', 'landing page headline', 'above fold conversion', 'website copy mistakes', 'CTA optimization'],
+      fr: ['section hero copywriting', 'titre landing page', 'conversion above fold', 'erreurs copywriting site', 'optimisation CTA'],
     },
     content: {
       en: `The first 5 seconds dictate whether a user stays or bounces. Your hero section is the most expensive real estate on your digital property, yet 80% of founders waste it on vague, abstract copywriting.
@@ -172,8 +181,12 @@ La clarté bat la créativité à chaque fois. Votre titre n'est pas un exercice
       fr: 'L\'Audit de Site en 5 Minutes que Tout Fondateur Devrait Faire',
     },
     excerpt: {
-      en: 'Don\'t have time or budget for a full agency audit? Do this 5-minute self-audit to find the biggest leaks.',
-      fr: 'Pas de temps ou de budget pour un audit d\'agence ? Faites cet auto-audit en 5 minutes pour trouver les plus grosses fuites.',
+      en: 'Don\'t have time or budget for a full agency audit? Do this 5-minute self-audit to find the biggest leaks before they bleed you dry.',
+      fr: 'Pas de temps ou de budget pour un audit d\'agence ? Faites cet auto-audit en 5 minutes pour trouver les plus grosses fuites avant qu\'elles ne vous coûtent trop cher.',
+    },
+    keywords: {
+      en: ['website audit checklist', 'DIY site audit', 'conversion rate audit', 'website self-audit', 'site performance check'],
+      fr: ['checklist audit site web', 'auto-audit site', 'audit taux de conversion', 'vérification performance site', 'audit rapide site web'],
     },
     content: {
       en: `Before you spend thousands on ads, ensure the bucket isn't leaking. You don't always need a $5,000 agency audit to find the biggest conversion killers. Here is a 5-minute framework every founder should run monthly.
@@ -231,7 +244,11 @@ Corriger les problèmes trouvés dans cet audit de 5 minutes suffit souvent à a
     },
     excerpt: {
       en: 'Design is communication, not decoration. Most landing pages commit the same fatal mistakes — here\'s how to avoid them.',
-      fr: 'Le design est de la communication, pas de la décoration. La plupart des landing pages commettent les mêmes erreurs fatales.',
+      fr: 'Le design est de la communication, pas de la décoration. La plupart des landing pages commettent les mêmes erreurs fatales — voici comment les éviter.',
+    },
+    keywords: {
+      en: ['landing page design mistakes', 'landing page UX', 'conversion design errors', 'website visual hierarchy', 'landing page optimization'],
+      fr: ['erreurs design landing page', 'UX landing page', 'hiérarchie visuelle site', 'optimisation landing page', 'design conversion'],
     },
     content: {
       en: `Design is not decoration — it's communication. A landing page lives or dies by whether a visitor instantly understands your offer, trusts you, and knows what to do next. Yet most landing pages commit the same avoidable mistakes again and again.
@@ -298,8 +315,12 @@ Faites analyser votre landing page par un audit IA brutal pour voir exactement l
       fr: 'Comment Écrire un Titre Hero qui Convertit Vraiment',
     },
     excerpt: {
-      en: 'The formula for writing headlines that stop visitors in their tracks and push them toward buying.',
-      fr: 'La formule pour écrire des titres qui stoppent les visiteurs et les poussent à acheter.',
+      en: 'The formula for writing headlines that stop visitors in their tracks, earn their trust, and push them toward buying.',
+      fr: 'La formule pour écrire des titres qui stoppent les visiteurs, gagnent leur confiance et les poussent à acheter.',
+    },
+    keywords: {
+      en: ['headline copywriting', 'website headline formula', 'high-converting headline', 'landing page title', 'conversion copywriting'],
+      fr: ['copywriting titre', 'formule titre site web', 'titre qui convertit', 'titre landing page', 'copywriting conversion'],
     },
     content: {
       en: `The average website visitor decides whether to stay or leave within 5 seconds. Your hero headline is your one shot — and most headlines fail that test completely.
@@ -378,6 +399,10 @@ Testez : "Nous aidons [type spécifique d'entreprise] à atteindre [résultat sp
     excerpt: {
       en: 'The average contact form abandonment rate is 81%. Here\'s the exact friction points killing your lead flow.',
       fr: 'Le taux d\'abandon des formulaires de contact est de 81%. Voici les frictions exactes qui tuent votre flux de leads.',
+    },
+    keywords: {
+      en: ['contact form optimization', 'lead generation form', 'form conversion rate', 'reduce form friction', 'contact page UX'],
+      fr: ['optimisation formulaire contact', 'formulaire génération leads', 'taux conversion formulaire', 'réduire friction formulaire', 'UX page contact'],
     },
     content: {
       en: `The average contact form abandonment rate is 81%. Eight out of ten people who start filling out your contact form never finish it. Here's why — and how to fix it.
@@ -462,6 +487,10 @@ Corrigez ces cinq problèmes et votre taux de conversion de formulaire s'amélio
     excerpt: {
       en: '62% of traffic is mobile. If your site isn\'t built for thumbs, you\'re losing more than half your potential customers.',
       fr: '62% du trafic est mobile. Si votre site n\'est pas conçu pour les pouces, vous perdez plus de la moitié de vos clients potentiels.',
+    },
+    keywords: {
+      en: ['mobile website checklist', 'mobile UX optimization', 'responsive design tips', 'mobile conversion rate', 'mobile first design'],
+      fr: ['checklist site mobile', 'optimisation UX mobile', 'conseils design responsive', 'taux de conversion mobile', 'design mobile first'],
     },
     content: {
       en: `62% of all web traffic is mobile. Yet most websites are still designed on desktop monitors and "made responsive" as an afterthought. Here's the definitive checklist for a mobile experience that converts.
@@ -562,6 +591,10 @@ Ne vous contentez pas de redimensionner votre navigateur. Testez sur un vrai app
       en: '92% of consumers read reviews before buying. Social proof isn\'t optional — here\'s how to use it strategically.',
       fr: '92% des consommateurs lisent des avis avant d\'acheter. La preuve sociale n\'est pas optionnelle — voici comment l\'utiliser stratégiquement.',
     },
+    keywords: {
+      en: ['social proof website', 'testimonials conversion', 'trust signals website', 'reviews and social proof', 'website credibility'],
+      fr: ['preuve sociale site web', 'témoignages conversion', 'signaux de confiance site', 'avis clients site web', 'crédibilité site web'],
+    },
     content: {
       en: `92% of consumers read reviews before making a purchase decision. Social proof isn't optional — it's one of the most powerful conversion tools available to any business. Here's a complete strategy for small businesses with limited social proof.
 
@@ -646,8 +679,12 @@ Demandez directement, immédiatement après une interaction positive. Une demand
       fr: 'Comment Nous Avons Analysé 100+ Sites de PME Françaises (Et Ce que Nous Avons Trouvé)',
     },
     excerpt: {
-      en: 'After running audits on over 100 French SME websites, the same 5 mistakes show up again and again.',
-      fr: 'Après avoir audité plus de 100 sites de PME françaises, les mêmes 5 erreurs reviennent encore et encore.',
+      en: 'After running audits on over 100 French SME websites, the same 5 mistakes show up again and again — and they\'re all fixable.',
+      fr: 'Après avoir audité plus de 100 sites de PME françaises, les mêmes 5 erreurs reviennent encore et encore — et elles sont toutes corrigeables.',
+    },
+    keywords: {
+      en: ['French SME website', 'small business website audit', 'PME website analysis', 'French business website', 'SME conversion rate'],
+      fr: ['site web PME française', 'audit site petite entreprise', 'analyse site web PME', 'site web commerce français', 'taux conversion PME'],
     },
     content: {
       en: `After running AI-powered audits on over 100 French small and medium enterprise websites across sectors including retail, services, crafts, and professional services, clear patterns emerged. Here's what we found.
@@ -737,6 +774,10 @@ Des sites ayant initialement scoré sous 4/10, ceux qui ont mis en œuvre les 3 
       en: 'A 1-second delay in page load time reduces conversions by up to 20%. Here\'s the data — and what to do about it.',
       fr: 'Un délai de 1 seconde dans le temps de chargement réduit les conversions jusqu\'à 20%. Voici les données — et comment agir.',
     },
+    keywords: {
+      en: ['page speed optimization', 'website loading speed', 'core web vitals', 'page speed conversion rate', 'site performance'],
+      fr: ['optimisation vitesse page', 'vitesse chargement site web', 'core web vitals', 'performance site web', 'temps chargement conversion'],
+    },
     content: {
       en: `A 1-second delay in page load time reduces conversions by 7-20% depending on your industry. For an e-commerce store doing €100k/month, that's potentially €20k lost per second of load time. This isn't theoretical — it's been measured repeatedly across thousands of real businesses.
 
@@ -818,8 +859,12 @@ Avant d'optimiser, mesurez. Utilisez Google PageSpeed Insights pour obtenir vos 
       fr: 'La Formule Parfaite pour le Au-dessus de la Ligne de Flottaison',
     },
     excerpt: {
-      en: '80% of visitors never scroll past the fold. Everything that matters must fit in that first viewport.',
-      fr: '80% des visiteurs ne font jamais défiler au-delà de la ligne de flottaison. Tout ce qui compte doit tenir dans cette première vue.',
+      en: '80% of visitors never scroll past the fold. Everything that matters must fit in that first viewport — here\'s the exact formula.',
+      fr: '80% des visiteurs ne font jamais défiler au-delà de la ligne de flottaison. Tout ce qui compte doit tenir dans cette première vue — voici la formule exacte.',
+    },
+    keywords: {
+      en: ['above the fold design', 'hero section formula', 'above fold conversion', 'landing page above fold', 'website first impression'],
+      fr: ['design above the fold', 'formule section hero', 'conversion above fold', 'landing page première impression', 'site web première impression'],
     },
     content: {
       en: `80% of visitors never scroll below the fold. Your entire case for conversion must live in that first viewport — what's visible before any scrolling. Most sites waste this prime real estate. Here's the formula for using it perfectly.
@@ -907,7 +952,11 @@ La ligne de flottaison est l'espace le plus testé sur Internet. Chaque élémen
     },
     excerpt: {
       en: 'The old trust badges don\'t work anymore. Here\'s what modern visitors actually look for before handing over their email or credit card.',
-      fr: 'Les vieux badges de confiance ne fonctionnent plus. Voici ce que les visiteurs modernes recherchent vraiment.',
+      fr: 'Les vieux badges de confiance ne fonctionnent plus. Voici ce que les visiteurs modernes recherchent vraiment avant de donner leurs coordonnées.',
+    },
+    keywords: {
+      en: ['trust signals website 2026', 'website credibility factors', 'online trust building', 'website trust badges', 'conversion trust signals'],
+      fr: ['signaux de confiance site 2026', 'facteurs crédibilité site web', 'confiance en ligne', 'badges confiance site web', 'signaux confiance conversion'],
     },
     content: {
       en: `Trust is the currency of conversion. A visitor doesn't hand over their email address, credit card number, or personal information to a company they don't trust. Here's what actually signals trust to visitors in 2026 — and what doesn't anymore.
@@ -982,6 +1031,10 @@ Trust isn't built with badges. It's built with specificity, transparency, and co
     excerpt: {
       en: 'A small bistro in Bordeaux went from 12 to 26 weekly online reservations by changing one button. Here\'s the full story.',
       fr: 'Un petit bistrot à Bordeaux est passé de 12 à 26 réservations en ligne hebdomadaires en changeant un seul bouton. Voici l\'histoire complète.',
+    },
+    keywords: {
+      en: ['restaurant website CTA', 'restaurant conversion rate', 'hospitality website optimization', 'restaurant landing page', 'restaurant website audit'],
+      fr: ['CTA site restaurant', 'taux conversion restaurant', 'optimisation site restauration', 'landing page restaurant', 'audit site restaurant'],
     },
     content: {
       en: `A small family-run bistro in Bordeaux was struggling with online reservations. They had a working website, a decent Google Maps presence, and strong word-of-mouth. Yet their online reservation rate was averaging 12 bookings per week — far below their capacity of 40+ covers.
@@ -1070,6 +1123,10 @@ Ce cas n'est pas inhabituel. Il est représentatif de ce que nous voyons sur des
     excerpt: {
       en: 'The conversion rate formula is simple. Understanding what it means for your business is where most people get lost.',
       fr: 'La formule du taux de conversion est simple. Comprendre ce qu\'elle signifie pour votre business, c\'est là que la plupart se perdent.',
+    },
+    keywords: {
+      en: ['conversion rate calculator', 'calculate conversion rate', 'website conversion formula', 'ecommerce conversion rate', 'conversion rate optimization tool'],
+      fr: ['calculateur taux de conversion', 'calculer taux de conversion', 'formule taux conversion', 'taux conversion ecommerce', 'outil optimisation conversion'],
     },
     content: {
       en: `Your conversion rate is the single most important metric on your website. It tells you, bluntly, how well your site turns visitors into customers. Yet most website owners have no idea what theirs is — or what it should be.
@@ -1176,8 +1233,12 @@ Pour aller plus loin, lisez notre guide sur les [7 signes que votre site tue vos
       fr: 'Taux de Rebond Trop Élevé ? Voici Pourquoi',
     },
     excerpt: {
-      en: 'A high bounce rate is a symptom, not the problem. Here\'s how to diagnose and fix the real causes.',
-      fr: 'Un taux de rebond élevé est un symptôme, pas le problème. Voici comment diagnostiquer et corriger les vraies causes.',
+      en: 'A high bounce rate is a symptom, not the problem. Here\'s how to diagnose the real causes and fix them systematically.',
+      fr: 'Un taux de rebond élevé est un symptôme, pas le problème. Voici comment diagnostiquer les vraies causes et les corriger méthodiquement.',
+    },
+    keywords: {
+      en: ['high bounce rate fix', 'reduce bounce rate', 'website bounce rate', 'why visitors leave website', 'bounce rate optimization'],
+      fr: ['taux de rebond élevé', 'réduire taux de rebond', 'taux de rebond site web', 'pourquoi les visiteurs quittent', 'optimisation taux rebond'],
     },
     content: {
       en: `A high bounce rate is your website telling you something is wrong. A visitor lands on your page, takes one look, and leaves without clicking anything. Understanding why is the first step to fixing it.
@@ -1287,6 +1348,10 @@ Un taux de rebond élevé sur mobile est souvent lié aux Core Web Vitals. Lisez
       en: 'Your product page is your best salesperson. Most e-commerce sites underestimate how much money a poorly designed one loses them.',
       fr: 'Votre page produit est votre meilleur vendeur. La plupart des sites e-commerce sous-estiment combien une page mal conçue leur coûte.',
     },
+    keywords: {
+      en: ['ecommerce product page optimization', 'product page conversion', 'ecommerce CRO', 'product page UX', 'online store optimization'],
+      fr: ['optimisation page produit ecommerce', 'conversion page produit', 'CRO ecommerce', 'UX page produit', 'optimisation boutique en ligne'],
+    },
     content: {
       en: `Your product page does one job: convert a curious visitor into a paying customer. Every element either helps or hurts that goal. Most e-commerce product pages are leaking money through easily fixable gaps.
 
@@ -1375,8 +1440,12 @@ Pour réduire les clients que vous perdez après qu'ils aient déjà ajouté au 
       fr: 'Psychologie des Couleurs : Impact sur les Conversions',
     },
     excerpt: {
-      en: 'The colors on your website are making decisions for your visitors before they read a single word.',
-      fr: 'Les couleurs de votre site web prennent des décisions pour vos visiteurs avant qu\'ils aient lu un seul mot.',
+      en: 'The colors on your website are making decisions for your visitors before they read a single word. Here\'s how to make them work for you.',
+      fr: 'Les couleurs de votre site web prennent des décisions pour vos visiteurs avant qu\'ils aient lu un seul mot. Voici comment les faire travailler pour vous.',
+    },
+    keywords: {
+      en: ['color psychology website', 'website color conversion', 'color impact CRO', 'button color conversion', 'website design colors'],
+      fr: ['psychologie couleurs site web', 'couleurs site conversion', 'impact couleur CRO', 'couleur bouton conversion', 'couleurs design site web'],
     },
     content: {
       en: `Color is not decoration. It's communication. Before a visitor reads your headline, their brain has already processed your color palette and formed an emotional response. Getting color wrong doesn't just look bad — it loses sales.
@@ -1465,8 +1534,12 @@ Ne supposez rien. Testez votre couleur de bouton CTA avec un vrai A/B test avant
       fr: 'A/B Testing pour Débutants : Testez pour Convertir Plus',
     },
     excerpt: {
-      en: 'Stop guessing what works on your website. A/B testing lets data make the decisions for you.',
-      fr: 'Arrêtez de deviner ce qui fonctionne sur votre site. L\'A/B testing laisse les données prendre les décisions à votre place.',
+      en: 'Stop guessing what works on your website. A/B testing lets data make the decisions — and the wins add up faster than you think.',
+      fr: 'Arrêtez de deviner ce qui fonctionne sur votre site. L\'A/B testing laisse les données prendre les décisions — et les gains s\'accumulent plus vite que vous ne le pensez.',
+    },
+    keywords: {
+      en: ['A/B testing beginners', 'how to A/B test website', 'split testing guide', 'conversion rate testing', 'website experiment guide'],
+      fr: ['A/B testing débutants', 'comment faire A/B test site', 'guide split testing', 'test taux de conversion', 'guide expérimentation site'],
     },
     content: {
       en: `Gut feelings are expensive. Every time you change your website based on personal preference instead of data, you're gambling with your conversion rate. A/B testing removes the guesswork entirely.
@@ -1586,6 +1659,10 @@ L'A/B testing vous dit quoi fonctionne mieux — pas pourquoi. Pour comprendre l
       en: 'Every second of load time costs you conversions. Here are 10 proven ways to make your site faster today.',
       fr: 'Chaque seconde de temps de chargement vous coûte des conversions. Voici 10 façons éprouvées de rendre votre site plus rapide dès aujourd\'hui.',
     },
+    keywords: {
+      en: ['speed up website', 'improve website loading time', 'website performance optimization', 'faster website tips', 'reduce page load time'],
+      fr: ['accélérer site web', 'améliorer vitesse chargement', 'optimisation performance site web', 'conseils site plus rapide', 'réduire temps chargement'],
+    },
     content: {
       en: `Page speed is not a nice-to-have. A 1-second delay in load time reduces conversions by up to 20%. A 3-second delay loses 50% of visitors before the page even loads. Speed is a revenue issue.
 
@@ -1679,6 +1756,10 @@ Et si votre taux de rebond est élevé malgré une bonne vitesse, il y a peut-ê
     excerpt: {
       en: 'Your pricing page is where intent turns into revenue — or disappears forever. Most pricing pages make 5 predictable mistakes.',
       fr: 'Votre page tarifs est là où l\'intention se transforme en chiffre d\'affaires — ou disparaît pour toujours. La plupart des pages tarifs font 5 erreurs prévisibles.',
+    },
+    keywords: {
+      en: ['pricing page optimization', 'pricing page conversion', 'SaaS pricing page best practices', 'pricing page UX', 'increase pricing page conversions'],
+      fr: ['optimiser page tarifs', 'conversion page tarifs', 'meilleures pratiques page tarifs SaaS', 'UX page tarifs', 'augmenter conversions page tarifs'],
     },
     content: {
       en: `Visitors on your pricing page have already decided they're interested. They want to buy — or at least, they wanted to before they landed here. A bad pricing page can undo all your conversion work. A great one closes the deal on autopilot.
@@ -1777,6 +1858,10 @@ La [psychologie des couleurs](/fr/blog/psychologie-couleurs-site-web) joue un r�
       en: 'Web accessibility is not a compliance checkbox. It\'s a conversion opportunity that most businesses completely ignore.',
       fr: 'L\'accessibilité web n\'est pas une case à cocher réglementaire. C\'est une opportunité de conversion que la plupart des entreprises ignorent complètement.',
     },
+    keywords: {
+      en: ['web accessibility conversion', 'accessible website benefits', 'WCAG conversion rate', 'inclusive design revenue', 'accessibility and SEO'],
+      fr: ['accessibilité web conversion', 'bénéfices site accessible', 'WCAG taux conversion', 'design inclusif revenus', 'accessibilité et SEO'],
+    },
     content: {
       en: `15% of the global population has some form of disability. That's not a niche audience — it's 1 in 6 potential customers you could be turning away right now. Web accessibility isn't just ethically right; it's commercially smart.
 
@@ -1872,6 +1957,10 @@ Les bénéfices se cumulent : une meilleure accessibilité signifie de meilleure
     excerpt: {
       en: 'Core Web Vitals are Google\'s official speed metrics. Poor scores hurt your rankings and your conversions simultaneously.',
       fr: 'Les Core Web Vitals sont les métriques officielles de vitesse de Google. De mauvais scores nuisent à vos classements et à vos conversions simultanément.',
+    },
+    keywords: {
+      en: ['Core Web Vitals 2026', 'LCP FID CLS optimization', 'Google page experience', 'web vitals conversion', 'Core Web Vitals SEO'],
+      fr: ['Core Web Vitals 2026', 'optimisation LCP FID CLS', 'expérience page Google', 'web vitals conversion', 'Core Web Vitals SEO'],
     },
     content: {
       en: `Google uses Core Web Vitals as direct ranking signals. A poor score doesn't just create a bad user experience — it actively suppresses your position in search results. In 2026, with AI Overviews dominating the top of search pages, every organic position point matters more than ever.
@@ -1986,8 +2075,12 @@ Pour corriger les problèmes de vitesse qui génèrent de mauvais scores CWV, no
       fr: 'Comment Réduire l\'Abandon de Panier de 30%',
     },
     excerpt: {
-      en: '70% of shoppers abandon their cart before buying. Most of the reasons are entirely fixable.',
-      fr: '70% des acheteurs abandonnent leur panier avant d\'acheter. La plupart des raisons sont entièrement corrigeables.',
+      en: '70% of shoppers abandon their cart before buying. Most of the reasons are entirely fixable — and the fixes are simpler than you think.',
+      fr: '70% des acheteurs abandonnent leur panier avant d\'acheter. La plupart des raisons sont entièrement corrigeables — et les corrections sont plus simples que vous ne le pensez.',
+    },
+    keywords: {
+      en: ['reduce cart abandonment', 'shopping cart abandonment rate', 'ecommerce checkout optimization', 'abandoned cart recovery', 'cart abandonment solutions'],
+      fr: ['réduire abandon panier', 'taux abandon panier', 'optimisation tunnel achat', 'récupération panier abandonné', 'solutions abandon panier'],
     },
     content: {
       en: `The average cart abandonment rate is 70%. That means for every 10 people who add something to their cart, 7 leave without buying. This is the most expensive problem in e-commerce — and it's largely self-inflicted.
@@ -2101,6 +2194,10 @@ Pour les optimisations de page produit qui préparent un checkout réussi, lisez
     excerpt: {
       en: 'Most websites write about themselves. Your customers don\'t care. Here\'s how to write copy that actually converts.',
       fr: 'La plupart des sites parlent d\'eux-mêmes. Vos clients s\'en fichent. Voici comment écrire un texte qui convertit vraiment.',
+    },
+    keywords: {
+      en: ['website copywriting tips', 'conversion copywriting', 'website copy that sells', 'landing page copywriting', 'persuasive website copy'],
+      fr: ['conseils copywriting site web', 'copywriting conversion', 'texte site web qui vend', 'copywriting landing page', 'texte web persuasif'],
     },
     content: {
       en: `Most website copy is written from the inside out: "We are a passionate team of experts who deliver innovative solutions..." Nobody cares. Your visitors arrived with a problem. Write about their problem.
@@ -2222,6 +2319,10 @@ Pour appliquer ces techniques à votre titre spécifiquement, lisez notre guide 
       en: 'SEO brings visitors. CRO turns them into customers. Doing one without the other is like filling a leaky bucket.',
       fr: 'Le SEO amène des visiteurs. Le CRO les transforme en clients. Faire l\'un sans l\'autre, c\'est remplir un seau percé.',
     },
+    keywords: {
+      en: ['SEO vs CRO', 'SEO and conversion rate optimization', 'traffic vs conversion', 'SEO CRO synergy', 'organic traffic conversion'],
+      fr: ['SEO vs CRO', 'SEO et optimisation taux conversion', 'trafic vs conversion', 'synergie SEO CRO', 'conversion trafic organique'],
+    },
     content: {
       en: `You've heard of SEO. You've probably heard of CRO. Most businesses focus on one, ignore the other, and wonder why growth feels so slow. Here's the thing: they're not competing strategies. They're two halves of the same machine.
 
@@ -2328,6 +2429,10 @@ Commencez par mesurer. Notre guide sur le [calcul de votre taux de conversion](/
       en: 'Popups get a bad reputation because most are implemented badly. Done right, they\'re one of the highest-converting tools on your site.',
       fr: 'Les popups ont mauvaise réputation parce que la plupart sont mal implémentés. Bien faits, ils sont parmi les outils les plus convertissants de votre site.',
     },
+    keywords: {
+      en: ['popup best practices', 'website popup conversion', 'exit intent popup', 'popup UX tips', 'email capture popup'],
+      fr: ['meilleures pratiques popups', 'popup site web conversion', 'popup intention de sortie', 'conseils UX popup', 'popup capture email'],
+    },
     content: {
       en: `The average popup converts at 3-5% of visitors. The best ones hit 10%+. The worst ones drive people off your site entirely. The difference isn't the popup format — it's the execution.
 
@@ -2426,6 +2531,10 @@ Un popup bien conçu ne devrait pas augmenter votre [taux de rebond](/fr/blog/ta
     excerpt: {
       en: 'Most website owners stare at their analytics without knowing what matters. Here\'s the short list of metrics that actually drive decisions.',
       fr: 'La plupart des propriétaires de sites regardent leurs analytics sans savoir ce qui compte. Voici la courte liste des métriques qui pilotent vraiment les décisions.',
+    },
+    keywords: {
+      en: ['website analytics beginners', 'Google Analytics tutorial', 'website data analysis', 'analytics for conversion', 'track website performance'],
+      fr: ['analytics site web débutants', 'tutoriel Google Analytics', 'analyse données site web', 'analytics pour conversion', 'suivre performance site'],
     },
     content: {
       en: `GA4 can show you hundreds of metrics. Most of them are vanity metrics that feel good but don't drive action. Here are the ones that actually matter — and what to do when they're wrong.
@@ -2558,6 +2667,10 @@ Avec des analytics correctement configurés, le [SEO et le CRO](/fr/blog/seo-vs-
     excerpt: {
       en: 'For local businesses, your website and your Google Business Profile work together. Most local sites miss half the equation.',
       fr: 'Pour les commerces locaux, votre site et votre fiche Google Business fonctionnent ensemble. La plupart des sites locaux ratent la moitié de l\'équation.',
+    },
+    keywords: {
+      en: ['local business website optimization', 'local SEO website', 'local commerce website tips', 'small business website CRO', 'local website conversion'],
+      fr: ['optimisation site commerce local', 'SEO local site web', 'conseils site commerce local', 'CRO petite entreprise', 'conversion site commerce local'],
     },
     content: {
       en: `A local business website has a different job than a national brand site. Your goal isn't global reach — it's showing up when someone in your city searches for what you offer, and then converting that local searcher into a walk-in, call, or booking.
