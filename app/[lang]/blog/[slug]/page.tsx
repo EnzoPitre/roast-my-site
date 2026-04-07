@@ -48,28 +48,38 @@ export default function BlogPost({ params }: { params: { slug: string; lang: str
   const title = post.title[lang];
   const content = post.content[lang];
 
-  // Render markdown-like bold (**text**) and headings (### text)
+  // Parse inline bold (**text**) and links ([text](url))
+  const parseInline = (text: string) => {
+    const segments = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
+    return segments.map((seg, j) => {
+      if (seg.startsWith('**') && seg.endsWith('**')) {
+        return <strong key={j} style={{ color: '#F8FAFC', fontWeight: 800 }}>{seg.slice(2, -2)}</strong>;
+      }
+      const lm = seg.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+      if (lm) return <Link key={j} href={lm[2]} style={{ color: '#F97316', textDecoration: 'underline', fontWeight: 600 }}>{lm[1]}</Link>;
+      return seg;
+    });
+  };
+
+  // Render markdown-like bold (**text**), headings (### text), and links ([text](url))
   const renderContent = (text: string) => {
     return text.split('\n').map((line, i) => {
       if (line.startsWith('### ')) {
         return <h3 key={i} className="text-xl font-black mt-8 mb-3 tracking-tight" style={{ color: '#F8FAFC' }}>{line.slice(4)}</h3>;
       }
+      // Standalone CTA link: [text](url) on its own line
+      const ctaMatch = line.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+      if (ctaMatch) {
+        return (
+          <div key={i} className="mt-8">
+            <Link href={ctaMatch[2]} className="btn-orange inline-flex items-center gap-2 px-6 py-3 text-sm font-black">
+              {ctaMatch[1]}
+            </Link>
+          </div>
+        );
+      }
       if (line.startsWith('**') && line.endsWith('**')) {
         return <p key={i} className="font-black text-base mt-5 mb-1" style={{ color: '#F8FAFC' }}>{line.slice(2, -2)}</p>;
-      }
-      if (line.match(/^\*\*(.+)\*\*/)) {
-        // Inline bold in a line
-        const parts = line.split(/(\*\*[^*]+\*\*)/g);
-        return (
-          <p key={i} className="leading-relaxed" style={{ color: '#CBD5E1', fontSize: '1.0625rem' }}>
-            {parts.map((part, j) => {
-              if (part.startsWith('**') && part.endsWith('**')) {
-                return <strong key={j} style={{ color: '#F8FAFC', fontWeight: 800 }}>{part.slice(2, -2)}</strong>;
-              }
-              return part;
-            })}
-          </p>
-        );
       }
       if (line.startsWith('☐ ')) {
         return (
@@ -84,15 +94,16 @@ export default function BlogPost({ params }: { params: { slug: string; lang: str
         if (num) return (
           <div key={i} className="flex items-start gap-3 my-2">
             <span className="font-black text-sm mt-0.5 shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px]" style={{ background: 'rgba(249,115,22,0.15)', color: '#F97316' }}>{num[1]}</span>
-            <p className="leading-relaxed" style={{ color: '#CBD5E1', fontSize: '1.0625rem' }}>{num[2]}</p>
+            <p className="leading-relaxed" style={{ color: '#CBD5E1', fontSize: '1.0625rem' }}>{parseInline(num[2])}</p>
           </div>
         );
       }
       if (line.startsWith('- ')) {
-        return <li key={i} className="ml-4 leading-relaxed list-disc" style={{ color: '#CBD5E1', fontSize: '1.0625rem' }}>{line.slice(2)}</li>;
+        return <li key={i} className="ml-4 leading-relaxed list-disc" style={{ color: '#CBD5E1', fontSize: '1.0625rem' }}>{parseInline(line.slice(2))}</li>;
       }
       if (line.trim() === '') return <div key={i} className="h-4" />;
-      return <p key={i} className="leading-relaxed" style={{ color: '#CBD5E1', fontSize: '1.0625rem' }}>{line}</p>;
+      // Default paragraph — supports inline bold and links
+      return <p key={i} className="leading-relaxed" style={{ color: '#CBD5E1', fontSize: '1.0625rem' }}>{parseInline(line)}</p>;
     });
   };
 
