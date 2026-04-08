@@ -15,6 +15,7 @@ const STATIC_ROUTES: { en: string; fr: string; priority: number; changeFreq: Met
   { en: '/en/about',               fr: '/fr/about',                priority: 0.6,  changeFreq: 'monthly' },
   { en: '/en/changelog',           fr: '/fr/changelog',            priority: 0.5,  changeFreq: 'weekly' },
   { en: '/en/contact',             fr: '/fr/contact',              priority: 0.5,  changeFreq: 'yearly' },
+  { en: '/en/hall-of-shame',       fr: '/fr/hall-of-shame',        priority: 0.8,  changeFreq: 'weekly' },
   { en: '/en/legal',               fr: '/fr/mentions-legales',     priority: 0.3,  changeFreq: 'yearly' },
   { en: '/en/privacy',             fr: '/fr/confidentialite',      priority: 0.3,  changeFreq: 'yearly' },
   { en: '/en/terms',               fr: '/fr/cgu',                  priority: 0.3,  changeFreq: 'yearly' },

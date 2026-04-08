@@ -1,4 +1,4 @@
-export type RouteKey = 'home' | 'howItWorks' | 'pricing' | 'blog' | 'dashboard' | 'legal' | 'privacy' | 'terms' | 'contact' | 'demo' | 'compare' | 'about' | 'changelog' | 'testimonials';
+export type RouteKey = 'home' | 'howItWorks' | 'pricing' | 'blog' | 'dashboard' | 'legal' | 'privacy' | 'terms' | 'contact' | 'demo' | 'compare' | 'about' | 'changelog' | 'testimonials' | 'hallOfShame';
 
 type RouteMap = {
   [K in RouteKey]: {
@@ -22,6 +22,7 @@ export const routeMap: RouteMap = {
   about: { en: '/about', fr: '/about' },
   changelog: { en: '/changelog', fr: '/changelog' },
   testimonials: { en: '/testimonials', fr: '/testimonials' },
+  hallOfShame: { en: '/hall-of-shame', fr: '/hall-of-shame' },
 };
 
 export function getRouteKey(pathname: string, lang: 'en' | 'fr'): RouteKey | null {

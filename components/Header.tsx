@@ -40,6 +40,7 @@ export function Header() {
           <Link href={`/${lang}${routeMap.demo[lang]}`} style={{ color: '#E2E8F0' }} className="hover:text-orange-400 transition-colors duration-200">{t('nav.demo')}</Link>
           <Link href={`/${lang}${routeMap.compare[lang]}`} style={{ color: '#E2E8F0' }} className="hover:text-orange-400 transition-colors duration-200">{t('nav.compare')}</Link>
           <Link href={`/${lang}${routeMap.about[lang]}`} style={{ color: '#E2E8F0' }} className="hover:text-orange-400 transition-colors duration-200">{t('nav.about')}</Link>
+          <Link href={`/${lang}${routeMap.hallOfShame[lang]}`} className="hover:text-red-400 transition-colors duration-200 font-bold" style={{ color: '#EF4444' }}>{t('nav.hall_of_shame')}</Link>
         </nav>
 
         {/* Desktop Actions */}
@@ -109,6 +110,7 @@ export function Header() {
           <Link href={`/${lang}${routeMap.demo[lang]}`} style={{ color: '#E2E8F0' }} className="text-lg hover:text-orange-400 transition-colors" onClick={() => setMobileMenuOpen(false)}>{t('nav.demo')}</Link>
           <Link href={`/${lang}${routeMap.compare[lang]}`} style={{ color: '#E2E8F0' }} className="text-lg hover:text-orange-400 transition-colors" onClick={() => setMobileMenuOpen(false)}>{t('nav.compare')}</Link>
           <Link href={`/${lang}${routeMap.about[lang]}`} style={{ color: '#E2E8F0' }} className="text-lg hover:text-orange-400 transition-colors" onClick={() => setMobileMenuOpen(false)}>{t('nav.about')}</Link>
+          <Link href={`/${lang}${routeMap.hallOfShame[lang]}`} className="text-lg hover:text-red-400 transition-colors font-bold" style={{ color: '#EF4444' }} onClick={() => setMobileMenuOpen(false)}>{t('nav.hall_of_shame')}</Link>
           <button
             onClick={() => { toggleLang(); setMobileMenuOpen(false); }}
             className="flex items-center gap-2 text-base cursor-pointer w-fit transition-colors"

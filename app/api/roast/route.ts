@@ -38,12 +38,46 @@ export async function POST(req: Request) {
     const userId = (session.user as any).id;
 
     // 3. Input validation
-    const { url, lang = 'en', manualHtml } = await req.json();
+    const { url, lang = 'en', manualHtml, isFollowUp, previousRoastId } = await req.json();
     if (!url || !/^https?:\/\//i.test(url)) {
       return NextResponse.json({ error: 'invalid_url', errorCode: 'invalid_url' }, { status: 400 });
     }
 
-    // 4. Fetch the target URL with a 10s timeout (skip if manual HTML provided)
+    // 4. Check user & plan
+    let user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      user = await prisma.user.create({
+        data: {
+          id: userId,
+          email: session.user.email || '',
+          name: session.user.name || ''
+        }
+      });
+    }
+
+    // 5. Determine access rights
+    let isPaid = false;
+    const previousRoastsCount = await prisma.roast.count({ where: { userId } });
+
+    if (user.plan === 'pro') {
+      // Pro user: check monthly limit
+      if (user.monthlyRoastsUsed >= 10) {
+        const resetDate = user.monthlyRoastsReset
+          ? new Date(user.monthlyRoastsReset.getTime() + 30 * 24 * 60 * 60 * 1000)
+          : new Date();
+        const formattedDate = resetDate.toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB');
+        return NextResponse.json(
+          { error: 'monthly_limit_reached', resetDate: formattedDate },
+          { status: 403 }
+        );
+      }
+      isPaid = true; // Pro roasts are always paid/unlocked
+    } else {
+      // Free user: first roast is free (unlocked preview), subsequent require payment
+      isPaid = previousRoastsCount === 0;
+    }
+
+    // 6. Fetch the target URL with a 10s timeout (skip if manual HTML provided)
     let html = '';
     if (manualHtml && typeof manualHtml === 'string' && manualHtml.trim().length > 100) {
       html = manualHtml;
@@ -73,16 +107,16 @@ export async function POST(req: Request) {
       }
     }
 
-    // 5. Parse with Cheerio
+    // 7. Parse with Cheerio
     const $ = cheerio.load(html);
-    
+
     // Clean up unnecessary tags to reduce tokens
     $('script, style, noscript, svg, img, iframe, header, footer').remove();
-    
+
     const title = $('title').text().trim();
     const description = $('meta[name="description"]').attr('content') || '';
     const ogImage = $('meta[property="og:image"]').attr('content') || '';
-    
+
     // Extract visible text, normalize whitespace, cap at 3000 chars
     let visibleText = $('body').text();
     visibleText = visibleText.replace(/\s+/g, ' ').trim().slice(0, 3000);
@@ -97,25 +131,10 @@ VISIBLE TEXT (sample):
 ${visibleText}
     `.trim();
 
-    // 6. Generate roast with Claude
+    // 8. Generate roast with Claude
     const result = (await generateRoast(websiteData)) as RoastResult;
 
-    // 7. Check user's roast count to determine if free
-    let user = await prisma.user.findUnique({ where: { id: userId } });
-    if (!user) {
-      user = await prisma.user.create({
-        data: {
-          id: userId,
-          email: session.user.email || '',
-          name: session.user.name || ''
-        }
-      });
-    }
-
-    const previousRoastsCount = await prisma.roast.count({ where: { userId } });
-    const isPaid = previousRoastsCount === 0;
-
-    // 8. Save to Database
+    // 9. Save to Database
     const roast = await prisma.roast.create({
       data: {
         userId,
@@ -131,14 +150,26 @@ ${visibleText}
         topOpportunity: result.topOpportunity,
         quickWins: result.quickWins as Prisma.InputJsonValue,
         isPaid,
+        isFollowUp: isFollowUp === true,
+        previousRoastId: isFollowUp && previousRoastId ? previousRoastId : null,
       }
     });
 
-    // Increment user roast count
-    await prisma.user.update({
-      where: { id: userId },
-      data: { roastCount: { increment: 1 } }
-    });
+    // 10. Update user counters
+    if (user.plan === 'pro') {
+      await prisma.user.update({
+        where: { id: userId },
+        data: {
+          roastCount: { increment: 1 },
+          monthlyRoastsUsed: { increment: 1 },
+        }
+      });
+    } else {
+      await prisma.user.update({
+        where: { id: userId },
+        data: { roastCount: { increment: 1 } }
+      });
+    }
 
     // Fire-and-forget email — never awaited, never blocks the response
     const userEmail = session.user?.email;

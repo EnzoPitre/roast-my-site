@@ -38,16 +38,24 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
-  image         String?
-  roastCount    Int       @default(0) @map("roast_count")
-  accounts      Account[]
-  sessions      Session[]
-  roasts        Roast[]
-  reviews       Review[]
+  id                  String    @id @default(cuid())
+  name                String?
+  email               String?   @unique
+  emailVerified       DateTime? @map("email_verified")
+  image               String?
+  roastCount          Int       @default(0) @map("roast_count")
+  // Pro plan fields
+  plan                String    @default("free") // "free" or "pro"
+  planExpiresAt       DateTime? @map("plan_expires_at")
+  monthlyRoastsUsed   Int       @default(0) @map("monthly_roasts_used")
+  monthlyRoastsReset  DateTime? @map("monthly_roasts_reset")
+  stripeCustomerId    String?   @unique @map("stripe_customer_id")
+  accounts            Account[]
+  sessions            Session[]
+  roasts              Roast[]
+  reviews             Review[]
+  subscription        Subscription?
+  scheduledRoasts     ScheduledRoast[]
 
   @@map("users")
 }
@@ -86,6 +94,18 @@ model Review {
   @@map("reviews")
 }
 
+model Subscription {
+  id               String   @id @default(cuid())
+  userId           String   @unique @map("user_id")
+  user             User     @relation(fields: [userId], references: [id])
+  stripeSubId      String   @unique @map("stripe_sub_id")
+  status           String   // active, canceled, past_due
+  currentPeriodEnd DateTime @map("current_period_end")
+  createdAt        DateTime @default(now()) @map("created_at")
+
+  @@map("subscriptions")
+}
+
 model Roast {
   id                   String   @id @default(cuid())
   userId               String   @map("user_id")
@@ -101,9 +121,25 @@ model Roast {
   topOpportunity       String?
   quickWins            Json?
   isPaid               Boolean  @default(false) @map("is_paid")
+  isFollowUp           Boolean  @default(false) @map("is_follow_up")
+  previousRoastId      String?  @map("previous_roast_id")
   createdAt            DateTime @default(now()) @map("created_at")
 
   user User @relation(fields: [userId], references: [id])
 
   @@map("roasts")
+}
+
+model ScheduledRoast {
+  id        String    @id @default(cuid())
+  userId    String    @map("user_id")
+  user      User      @relation(fields: [userId], references: [id])
+  url       String
+  frequency String    // "weekly" or "monthly"
+  nextRunAt DateTime  @map("next_run_at")
+  lastRunAt DateTime? @map("last_run_at")
+  active    Boolean   @default(true)
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  @@map("scheduled_roasts")
 }

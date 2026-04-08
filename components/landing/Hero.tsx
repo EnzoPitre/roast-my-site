@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { useLanguage } from '@/components/LanguageProvider';
 import { ArrowRight, Zap } from 'lucide-react';
 import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { trackEvent } from '@/components/Analytics';
 
 const LOADING_STEPS = [
@@ -21,8 +21,10 @@ export function Hero() {
   const { t, lang } = useLanguage();
   const { status } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [url, setUrl] = useState('');
+  const [followUpFromId, setFollowUpFromId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showHtmlFallback, setShowHtmlFallback] = useState(false);
@@ -34,6 +36,14 @@ export function Hero() {
   const [reviewAvg, setReviewAvg] = useState<string | null>(null);
   const stepTimer = useRef<NodeJS.Timeout | null>(null);
   const progressRaf = useRef<number | null>(null);
+
+  // Pre-fill URL from query params (re-roast feature)
+  useEffect(() => {
+    const preUrl = searchParams.get('url');
+    const followUp = searchParams.get('followUpFrom');
+    if (preUrl) setUrl(preUrl);
+    if (followUp) setFollowUpFromId(followUp);
+  }, [searchParams]);
 
   // Fetch real review avg
   useEffect(() => {
@@ -142,8 +152,9 @@ export function Hero() {
     startLoadingProgress();
     trackEvent('roast_submitted', { url });
     try {
-      const body: Record<string, string> = { url, lang };
+      const body: Record<string, unknown> = { url, lang };
       if (manualHtml.trim().length > 100) body.manualHtml = manualHtml;
+      if (followUpFromId) { body.isFollowUp = true; body.previousRoastId = followUpFromId; }
       const res = await fetch("/api/roast", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
       const data = await res.json();
       if (!res.ok) {

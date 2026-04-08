@@ -202,8 +202,8 @@ export const translations = {
     "hiw.page.faq.5.a": "No, the site must be accessible publicly without any authentication.",
 
     // Pricing page
-    "pricing.title": "Pay once. Own it.",
-    "pricing.subtitle": "No subscriptions. No hidden fees. Pay only for what you need.",
+    "pricing.title": "Simple, honest pricing.",
+    "pricing.subtitle": "Start free. Pay per report. Or go Pro for monthly audits.",
     "pricing.free.name": "Free Trial",
     "pricing.free.desc": "Test the waters and get a taste of reality.",
     "pricing.free.feat1": "1 complete roast included",
@@ -439,7 +439,80 @@ export const translations = {
     "review.modal.already_reviewed": "You've already submitted a review. Thank you!",
     "review.modal.error.min_chars": "Review must be at least 50 characters.",
     "review.modal.error.rating": "Please select a rating.",
-    "review.modal.error.general": "Something went wrong. Please try again."
+    "review.modal.error.general": "Something went wrong. Please try again.",
+
+    // Pro Plan
+    "pricing.pro.badge": "Most Popular",
+    "pricing.pro.name": "Pro",
+    "pricing.pro.per": "/ month",
+    "pricing.pro.desc": "For founders who audit regularly.",
+    "pricing.pro.feat1": "10 full audits per month",
+    "pricing.pro.feat2": "All Pay-as-you-go features",
+    "pricing.pro.feat3": "Scheduled automatic roasts",
+    "pricing.pro.feat4": "Progress tracking over time",
+    "pricing.pro.feat5": "CSV export",
+    "pricing.pro.feat6": "Priority support",
+    "pricing.pro.cta": "Subscribe",
+    "pricing.pro.subscribing": "Redirecting...",
+    "plan.free_label": "Free Plan — Upgrade to Pro →",
+    "plan.pro_label": "Pro Plan ✓",
+    "plan.usage": "{used}/10 audits used this month",
+    "plan.manage": "Manage subscription",
+    "plan.limit_reached": "Monthly limit reached. Resets on {date}.",
+    "plan.subscribed_success": "You're now Pro! Welcome to the dark side 🔥",
+
+    // Hall of Shame
+    "nav.hall_of_shame": "Hall of Shame",
+    "shame.title": "Hall of Shame 🔥 — Worst Websites This Week",
+    "shame.subtitle": "The lowest-scoring audited sites. Is yours on the list?",
+    "shame.rank": "Rank",
+    "shame.score": "Score",
+    "shame.worst_badge": "Worst of the week",
+    "shame.empty": "No qualifying sites this week. Be the first →",
+    "shame.view_full": "See full roast →",
+    "shame.period_week": "Last 7 days",
+    "shame.period_month": "Last 30 days (no enough data this week)",
+    "shame.blurred_hint": "Unlock a paid roast to see full summaries",
+    "meta.shame.title": "Hall of Shame — Worst Websites This Week",
+    "meta.shame.description": "The lowest-scoring website audits this week. Is your site on the list?",
+
+    // Follow-up Roasts
+    "followup.re_roast": "Re-roast this site",
+    "followup.progress_title": "Progression",
+    "followup.previous_score": "Previous score",
+    "followup.current_score": "Current score",
+    "followup.improvement": "Improvement",
+    "followup.regression": "Regression",
+    "followup.no_change": "No change",
+    "followup.view_progress": "View progression →",
+    "followup.improved": "improved",
+    "followup.dropped": "dropped",
+
+    // Dashboard extras
+    "dash.export_csv": "Export CSV",
+    "dash.plan_banner_free": "Free Plan — Upgrade to Pro →",
+    "dash.plan_banner_pro": "Pro Plan ✓ — {used}/10 audits this month",
+    "dash.manage_sub": "Manage subscription",
+    "dash.progress_bar_label": "Monthly usage",
+
+    // Scheduled Roasts
+    "scheduled.tab": "Scheduled Roasts",
+    "scheduled.roasts_tab": "My Roasts",
+    "scheduled.empty": "No scheduled roasts yet.",
+    "scheduled.add": "Add a scheduled roast",
+    "scheduled.url_label": "Website URL",
+    "scheduled.frequency_label": "Frequency",
+    "scheduled.weekly": "Weekly",
+    "scheduled.monthly": "Monthly",
+    "scheduled.next_run": "Next run",
+    "scheduled.last_run": "Last run",
+    "scheduled.active": "Active",
+    "scheduled.inactive": "Inactive",
+    "scheduled.delete": "Delete",
+    "scheduled.pro_only": "Pro Feature — Upgrade to Pro →",
+    "scheduled.cancel": "Cancel",
+    "scheduled.save": "Schedule",
+    "scheduled.saving": "Saving..."
   },
   
   fr: {
@@ -633,8 +706,8 @@ export const translations = {
     "hiw.page.faq.5.a": "Non, le site doit être accessible publiquement sans authentification.",
 
     // Pricing page
-    "pricing.title": "Payez une fois. C'est à vous.",
-    "pricing.subtitle": "Sans abonnement. Sans frais cachés. Payez seulement ce dont vous avez besoin.",
+    "pricing.title": "Une tarification simple et honnête.",
+    "pricing.subtitle": "Commencez gratuitement. Payez par rapport. Ou passez Pro pour des audits mensuels.",
     "pricing.free.name": "Essai Gratuit",
     "pricing.free.desc": "Testez sans risque et découvrez la réalité.",
     "pricing.free.feat1": "1 audit complet inclus",
@@ -869,7 +942,80 @@ export const translations = {
     "review.modal.already_reviewed": "Vous avez déjà soumis un avis. Merci !",
     "review.modal.error.min_chars": "L'avis doit comporter au moins 50 caractères.",
     "review.modal.error.rating": "Veuillez sélectionner une note.",
-    "review.modal.error.general": "Une erreur est survenue. Veuillez réessayer."
+    "review.modal.error.general": "Une erreur est survenue. Veuillez réessayer.",
+
+    // Pro Plan
+    "pricing.pro.badge": "Le Plus Populaire",
+    "pricing.pro.name": "Pro",
+    "pricing.pro.per": "/ mois",
+    "pricing.pro.desc": "Pour les fondateurs qui auditent régulièrement.",
+    "pricing.pro.feat1": "10 audits complets par mois",
+    "pricing.pro.feat2": "Toutes les fonctionnalités À la Demande",
+    "pricing.pro.feat3": "Roasts automatiques programmés",
+    "pricing.pro.feat4": "Suivi de progression dans le temps",
+    "pricing.pro.feat5": "Export CSV",
+    "pricing.pro.feat6": "Support prioritaire",
+    "pricing.pro.cta": "S'abonner",
+    "pricing.pro.subscribing": "Redirection...",
+    "plan.free_label": "Plan Gratuit — Passez Pro →",
+    "plan.pro_label": "Plan Pro ✓",
+    "plan.usage": "{used}/10 audits utilisés ce mois",
+    "plan.manage": "Gérer mon abonnement",
+    "plan.limit_reached": "Limite mensuelle atteinte. Réinitialisation le {date}.",
+    "plan.subscribed_success": "Vous êtes maintenant Pro ! Bienvenue du côté obscur 🔥",
+
+    // Hall of Shame
+    "nav.hall_of_shame": "Hall of Shame",
+    "shame.title": "Hall of Shame 🔥 — Les Pires Sites de la Semaine",
+    "shame.subtitle": "Les sites avec les scores les plus bas. Le vôtre est-il dans la liste ?",
+    "shame.rank": "Rang",
+    "shame.score": "Score",
+    "shame.worst_badge": "Pire de la semaine",
+    "shame.empty": "Aucun site qualifié cette semaine. Soyez le premier →",
+    "shame.view_full": "Voir le roast complet →",
+    "shame.period_week": "7 derniers jours",
+    "shame.period_month": "30 derniers jours (pas assez de données cette semaine)",
+    "shame.blurred_hint": "Débloquez un audit payant pour voir les résumés complets",
+    "meta.shame.title": "Hall of Shame — Les Pires Sites Web de la Semaine",
+    "meta.shame.description": "Découvrez les sites web avec les pires scores d'audit cette semaine. Votre site est-il dans la liste ?",
+
+    // Follow-up Roasts
+    "followup.re_roast": "Re-roaster ce site",
+    "followup.progress_title": "Progression",
+    "followup.previous_score": "Score précédent",
+    "followup.current_score": "Score actuel",
+    "followup.improvement": "Amélioration",
+    "followup.regression": "Régression",
+    "followup.no_change": "Pas de changement",
+    "followup.view_progress": "Voir la progression →",
+    "followup.improved": "amélioré",
+    "followup.dropped": "régressé",
+
+    // Dashboard extras
+    "dash.export_csv": "Exporter CSV",
+    "dash.plan_banner_free": "Plan Gratuit — Passez Pro →",
+    "dash.plan_banner_pro": "Plan Pro ✓ — {used}/10 audits ce mois",
+    "dash.manage_sub": "Gérer mon abonnement",
+    "dash.progress_bar_label": "Utilisation mensuelle",
+
+    // Scheduled Roasts
+    "scheduled.tab": "Roasts Programmés",
+    "scheduled.roasts_tab": "Mes Audits",
+    "scheduled.empty": "Aucun roast programmé pour l'instant.",
+    "scheduled.add": "Ajouter un roast programmé",
+    "scheduled.url_label": "URL du site",
+    "scheduled.frequency_label": "Fréquence",
+    "scheduled.weekly": "Hebdomadaire",
+    "scheduled.monthly": "Mensuel",
+    "scheduled.next_run": "Prochain lancement",
+    "scheduled.last_run": "Dernier lancement",
+    "scheduled.active": "Actif",
+    "scheduled.inactive": "Inactif",
+    "scheduled.delete": "Supprimer",
+    "scheduled.pro_only": "Fonctionnalité Pro — Passez Pro →",
+    "scheduled.cancel": "Annuler",
+    "scheduled.save": "Programmer",
+    "scheduled.saving": "Enregistrement..."
   }
 };
 
