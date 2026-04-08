@@ -142,7 +142,8 @@ export function DashboardClient({
         body: JSON.stringify({ url: newUrl, frequency: newFrequency }),
       });
       if (res.ok) {
-        setScheduled(p => [...p, await res.json()]);
+        const data = await res.json();
+        setScheduled(p => [...p, data]);
         setShowAddModal(false); setNewUrl(''); setNewFrequency('weekly');
       }
     } finally { setSaving(false); }
