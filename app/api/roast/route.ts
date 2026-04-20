@@ -57,7 +57,6 @@ export async function POST(req: Request) {
 
     // 5. Determine access rights
     let isPaid = false;
-    const previousRoastsCount = await prisma.roast.count({ where: { userId } });
 
     if (user.plan === 'pro') {
       // Pro user: check monthly limit
@@ -71,11 +70,9 @@ export async function POST(req: Request) {
           { status: 403 }
         );
       }
-      isPaid = true; // Pro roasts are always paid/unlocked
-    } else {
-      // Free user: first roast is free (unlocked preview), subsequent require payment
-      isPaid = previousRoastsCount === 0;
+      isPaid = true; // Pro roasts are always fully unlocked
     }
+    // Free users: all roasts start locked; user pays €4.90 to unlock
 
     // 6. Fetch the target URL with a 10s timeout (skip if manual HTML provided)
     let html = '';

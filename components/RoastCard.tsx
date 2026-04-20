@@ -121,6 +121,13 @@ export function RoastCard({ roast, children }: RoastCardProps) {
 
   const scoreColor = roast.globalScore >= 8 ? '#22C55E' : roast.globalScore >= 5 ? '#F97316' : '#EF4444';
 
+  const displaySummary = roast.isPaid
+    ? roast.summary
+    : (() => {
+        const sentences = (roast.summary as string)?.split(/(?<=\.)\s+/) ?? [];
+        return sentences.length > 2 ? sentences.slice(0, 2).join(' ') + '…' : roast.summary;
+      })();
+
   const actionBtnStyle = {
     color: '#94A3B8',
     background: 'rgba(249,115,22,0.05)',
@@ -157,7 +164,7 @@ export function RoastCard({ roast, children }: RoastCardProps) {
               >
                 {roast.url}
               </h1>
-              <p className="mb-4" style={{ color: '#94A3B8', fontSize: '0.95rem', lineHeight: 1.6 }}>{roast.summary}</p>
+              <p className="mb-4" style={{ color: '#94A3B8', fontSize: '0.95rem', lineHeight: 1.6 }}>{displaySummary}</p>
 
               {roast.competitorComparison && (
                 <div className="rounded-xl p-4 flex items-start gap-3" style={{ background: 'rgba(249,115,22,0.06)', border: '1px solid rgba(249,115,22,0.15)', width: '100%', boxSizing: 'border-box' }}>
