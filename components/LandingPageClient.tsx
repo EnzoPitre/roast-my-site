@@ -10,7 +10,6 @@ import { HowItWorks } from "@/components/landing/HowItWorks";
 import { Testimonials } from "@/components/landing/Testimonials";
 import { BeforeAfter } from "@/components/landing/BeforeAfter";
 import { StatsCounter } from "@/components/landing/StatsCounter";
-import { PressRow } from "@/components/landing/PressRow";
 import { FAQ } from "@/components/landing/FAQ";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { AuditDimensions } from "@/components/landing/AuditDimensions";
@@ -36,7 +35,6 @@ export function LandingPageClient() {
       <main className="min-h-screen relative overflow-hidden flex flex-col items-center">
 
         <Hero />
-        <PressRow />
         <HowItWorks />
         <SpeedTimeline />
         <AuditDimensions />
